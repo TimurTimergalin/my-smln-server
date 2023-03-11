@@ -14,7 +14,7 @@ class MongoDB:
                              ''.join(chr(x) for x in range(ord('а'), ord('я') + 1)) + 'ё')
 
     def __init__(self, conn_str, password_hasher):
-        client = motor.motor_asyncio.AsyncIOMotorClient(conn_str)
+        client = motor.motor_asyncio.AsyncIOMotorClient(conn_str, connectTimeoutMS=5000)
 
         self.db = client["smln-server"]
 

@@ -27,7 +27,7 @@ async def main():
         datefmt="%d/%b/%Y %H:%M:%S",
     )
 
-    db = MongoDB("mongodb://localhost:27017", PasswordHasher("sha3_256"))
+    db = MongoDB("mongodb://host.docker.internal:27017", PasswordHasher("sha3_256"))
     async with websockets.serve(Connection.connect(ConnectionRegistry(logging), db, logging), "0.0.0.0", 8080):
         await asyncio.Future()
 

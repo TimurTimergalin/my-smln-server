@@ -13,7 +13,7 @@ async def main():
 
     async with websockets.connect(url) as conn:
         await asyncio.gather(
-            conn.send("message 1"),
+            conn.send('{"type": "auth", "args": {"login": "ljoerg", "pass": "oughierughu"}}'),
             conn.send("message 2"),
             conn.send("message 3")
         )
