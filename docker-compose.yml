@@ -10,17 +10,11 @@ services:
       - ./data:/srv
       - ./00-websockets.conf:/etc/nginx/conf.d/default.conf
       - ./TSL:/etc/nginx/TSL #сертификаты
-    networks:
-      - host
 
 
   server:
     ports:
       - 8080:8080
     build: .
-    networks:
-      - host
 
-networks:
-  host:
-    #driver: host
+

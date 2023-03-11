@@ -8,5 +8,5 @@ RUN pip3 install -r requirements.txt
 
 ENTRYPOINT ["python"]
 
-CMD ["echo_server.py"]
+CMD ["main.py"]
 
