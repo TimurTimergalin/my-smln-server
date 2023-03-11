@@ -11,16 +11,16 @@ services:
       - ./00-websockets.conf:/etc/nginx/conf.d/default.conf
       - ./TSL:/etc/nginx/TSL #сертификаты
     networks:
-      - my_host
+      - host
 
 
   server:
     ports:
-      - 5000:5000
+      - 8080:8080
     build: .
     networks:
-      - my_host
+      - host
 
 networks:
-  my_host:
-    driver: host
+  host:
+    #driver: host
