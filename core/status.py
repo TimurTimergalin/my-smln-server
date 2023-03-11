@@ -1,7 +1,7 @@
 def status(code, mes=None):
     res = {"status": code}
     if mes is not None:
-        res["error-message_for_receiver"] = mes
+        res["error-message"] = mes
 
     return res
 
@@ -29,6 +29,10 @@ def unknown_type(type_):
 def absent_fields(fields):
     lst = ", ".join(f'"{x}"' for x in fields)
     return status(2, f'Following required fields are absent: {lst}')
+
+
+def wrong_data_type(field):
+    return status(2, f"Wrong data type of field: {field}")
 
 
 def wrong_credentials():

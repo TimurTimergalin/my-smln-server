@@ -1,5 +1,10 @@
+import traceback
+from io import StringIO
+
+
 class SMLNHandler:
-    def __init__(self):
+    def __init__(self, logger=None):
+        self.logger = logger
         self.handler_dict = {}
         self.invalid_type = None
         self.server_error = None
@@ -23,6 +28,9 @@ class SMLNHandler:
         else:
             try:
                 await handler(conn, args)
-            except Exception as e:
-                print(e.__traceback__)  # TODO: logging
+            except Exception:
+                with StringIO() as st:
+                    traceback.print_exc(file=st)
+
+                    self.logger.error(st.getvalue())
                 await self.server_error(conn, type_)
