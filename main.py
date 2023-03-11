@@ -28,7 +28,7 @@ async def main():
     )
 
     db = MongoDB("mongodb://localhost:27017", PasswordHasher("sha3_256"))
-    async with websockets.serve(Connection.connect(ConnectionRegistry(logging), db, logging), "localhost", 8080):
+    async with websockets.serve(Connection.connect(ConnectionRegistry(logging), db, logging), "0.0.0.0", 5000):
         await asyncio.Future()
 
 
