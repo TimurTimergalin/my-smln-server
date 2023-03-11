@@ -5,3 +5,4 @@ pycryptodomex==3.17
 pymongo==4.3.3
 websockets==10.4
 wincertstore==0.2
+requests

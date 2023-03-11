@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import os
-
+import requests
 from db import MongoDB
 import websockets
 from core.connection import Connection
@@ -26,10 +26,10 @@ async def main():
         format="[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s",
         datefmt="%d/%b/%Y %H:%M:%S",
     )
-
-    db = MongoDB("mongodb://host.docker.internal:27017", PasswordHasher("sha3_256"))
-    async with websockets.serve(Connection.connect(ConnectionRegistry(logging), db, logging), "0.0.0.0", 8080):
-        await asyncio.Future()
+    logging.info(requests.get("http://db:27017"))
+    db = MongoDB("mongodb://db:27017", PasswordHasher("sha3_256"))
+    #async with websockets.serve(Connection.connect(ConnectionRegistry(logging), db, logging), "0.0.0.0", 8080):
+    #   await asyncio.Future()
 
 
 if __name__ == '__main__':

@@ -14,24 +14,24 @@ services:
       - default
 
 
-
-
   server:
     ports:
       - 8080:8080
     build: .
     networks:
       - default
-    extra_hosts:
-      - "host.docker.internal:127.0.0.1"
+    depends_on:
+      - db
 
 
   db:
+    container_name: db
     image: mongodb/mongodb-community-server:6.0.4-ubi8
     ports:
       - 27017:27017
     volumes:
       - smln-server-data:/data/db
+    command: --bind_ip_all
     networks:
       - default
 
