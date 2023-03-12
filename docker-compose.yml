@@ -25,15 +25,22 @@ services:
 
 
   db:
+    environment:
+      - MONGO_INITDB_DATABASE=admin
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=toor
     container_name: db
     image: mongodb/mongodb-community-server:6.0.4-ubi8
     ports:
       - 27017:27017
     volumes:
       - smln-server-data:/data/db
-    command: --bind_ip_all
+    command: >
+      bash -c "mongod --bind_ip_all"
+
     networks:
       - default
+
 
 volumes:
   smln-server-data:
