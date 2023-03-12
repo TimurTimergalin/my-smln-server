@@ -1,0 +1,13 @@
+logging:
+  file_name: "smln_server.log"
+  level: INFO
+  format: "[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
+  datetime_format: "%d/%b/%Y %H:%M:%S"
+db:
+  driver: MongoDB
+  connection_string: "mongodb://localhost:27017"
+crypto:
+  hash_alg: sha3_256
+
+ip: "0.0.0.0"
+port: 8080

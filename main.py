@@ -1,12 +1,14 @@
 import asyncio
 import logging
 import os
-import requests
-from db import MongoDB
+from sys import argv
+import db as drivers
+
 import websockets
 from core.connection import Connection
 from core.connection_registry import ConnectionRegistry
 from encryption import *
+from config import yaml_config
 
 
 def init_file_system():
@@ -20,15 +22,18 @@ def init_file_system():
 async def main():
     init_file_system()
 
+    cfg = yaml_config(argv[1])
     logging.basicConfig(
-        filename="logs/smln_server.log",
-        level=logging.INFO,
-        format="[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s",
-        datefmt="%d/%b/%Y %H:%M:%S",
+        filename=f"logs/{cfg.logging.file_name}",
+        level=getattr(logging, cfg.logging.level),
+        format=cfg.logging.format,
+        datefmt=cfg.logging.datetime_format
     )
-    db = MongoDB("mongodb://db:27017", PasswordHasher("sha3_256"))
+    driver = drivers.get(cfg.db.driver)
 
-    async with websockets.serve(Connection.connect(ConnectionRegistry(logging), db, logging), "0.0.0.0", 8080):
+    db = driver(cfg.db.connection_string, PasswordHasher(cfg.crypto.hash_alg))
+    async with websockets.serve(Connection.connect(ConnectionRegistry(logging), db, logging), cfg.ip, cfg.port):
+
         await asyncio.Future()
 
 
