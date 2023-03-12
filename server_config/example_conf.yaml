@@ -5,7 +5,7 @@ logging:
   datetime_format: "%d/%b/%Y %H:%M:%S"
 db:
   driver: MongoDB
-  connection_string: "mongodb://db:27017"
+  connection_string: "mongodb://admin:admin@db:27017"
 crypto:
   hash_alg: sha3_256
 
