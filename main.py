@@ -31,7 +31,9 @@ async def main():
     )
     driver = drivers.get(cfg.db.driver)
 
-    db = driver(cfg.db.connection_string, PasswordHasher(cfg.crypto.hash_alg))
+    connection_string = f"mongodb://{cfg.db.login}:{cfg.db.password}@{cfg.db.host}"
+
+    db = driver(connection_string, PasswordHasher(cfg.crypto.hash_alg))
     async with websockets.serve(Connection.connect(ConnectionRegistry(logging), db, logging), cfg.ip, cfg.port):
 
         await asyncio.Future()
