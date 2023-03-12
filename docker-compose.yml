@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx
+    restart: always
+    ports:
+      - 444:444
+    volumes:
+      - ./data:/srv
+      - ./00-websockets.conf:/etc/nginx/conf.d/default.conf
+      - ./TSL:/etc/nginx/TSL #сертификаты
+    networks:
+      - default
+
+
+  server:
+    ports:
+      - 8081:8081
+    build: .
+    networks:
+      - default
+    depends_on:
+      - db
+
+
+  db:
+    container_name: db
+    image: mongo:6.0.4
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - smln-server-data:/data/db
+    command: >
+      bash -c "mongod --bind_ip_all"
+
+    networks:
+      - default
+
+
+volumes:
+  smln-server-data:
+    external: false
+
+
+networks:
+  default:
+    driver: "bridge"
+
+
