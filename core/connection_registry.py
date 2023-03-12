@@ -8,10 +8,11 @@ class ConnectionRegistry:
         self.unauthorized.add(connection)
 
     def authorize(self, connection, user_id):
-        self.unauthorized.remove(connection)
-
         if self.authorized.get(user_id) is not None:
             raise ValueError("Such user is already authorized")
+
+        self.unauthorized.remove(connection)
+
         self.authorized[user_id] = connection
 
         self.logger.info(f"Authentication succeeded. Connection: {connection.id}, user-id: {user_id}")
