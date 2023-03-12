@@ -1,7 +1,7 @@
 from Crypto.PublicKey import RSA
 
 
-class RsaAesHybridEncryptor:
+class RsaKeyGenerator:
     def __init__(self, key_length):
         self.key_length = key_length
 
