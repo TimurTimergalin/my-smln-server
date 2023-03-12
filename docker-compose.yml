@@ -25,12 +25,9 @@ services:
 
 
   db:
-    environment:
-      - MONGO_INITDB_DATABASE=admin
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=toor
     container_name: db
-    image: mongodb/mongodb-community-server:6.0.4-ubi8
+    image: mongo:6.0.4
+    restart: always
     ports:
       - 27017:27017
     volumes:
