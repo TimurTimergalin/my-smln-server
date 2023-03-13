@@ -7,7 +7,7 @@ db:
   driver: MongoDB
   host: "db:27017"
   login: "admin"
-  password: "admin"
+  password: "admin" # если меняете пароль и логин, так же измените пароль и логин в docker-compose.yml и в init-mongo.js
 crypto:
   hash_alg: sha3_256
 
