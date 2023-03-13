@@ -24,14 +24,14 @@ async def init_db(db: motor.AsyncIOMotorDatabase):
 
 
 async def create_user(db: motor.AsyncIOMotorDatabase, pswd):
-    username = input("Введите имя и фамилию пользователя")
+    username = input("Введите имя и фамилию пользователя: ")
     if not re.match(r'[A-Za-zА-ЯЁа-яё0-9 ]+', username):
         print("Некорректное имя пользователя")
         return
-    login = input("Введите логин пользователя, с помощью которого он будет входить в систему")
+    login = input("Введите логин пользователя, с помощью которого он будет входить в систему: ")
     if not re.match(r'[A-Za-z_]', login):
         print("Некорректный логин")
-    role = input("Введите должность пользователя в компании")
+    role = input("Введите должность пользователя в компании: ")
     if not re.match(r'[A-Za-zА-ЯЁа-яё0-9 ]+', role):
         print("Некорректная должность пользователя")
         return
@@ -59,6 +59,8 @@ async def create_user(db: motor.AsyncIOMotorDatabase, pswd):
         "is-online": False,
         "last-seen": int(time.time())
     }
+
+    print("Пользователь успешно добавлен в систему")
 
     await users.insert_one(user)
 
