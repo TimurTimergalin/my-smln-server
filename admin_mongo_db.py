@@ -66,7 +66,13 @@ async def create_user(db: motor.AsyncIOMotorDatabase, pswd):
 async def main():
     cfg = yaml_config(argv[1])
 
-    client = motor.AsyncIOMotorClient(f"mongodb://{cfg.db.login}:{cfg.db.password}@localhost:27017")
+    auth = ""
+    if hasattr(cfg.db, "login"):
+        auth = f"{cfg.db.login}:{cfg.db.password}@"
+
+    connection_string = f"mongodb://{auth}localhost:27017"
+
+    client = motor.AsyncIOMotorClient(connection_string)
     db = client['smln-server']
     password_hasher = PasswordHasher(cfg.crypto.hash_alg)
 
