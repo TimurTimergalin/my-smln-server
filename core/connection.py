@@ -340,7 +340,7 @@ class Connection:
 
     @handler_log
     async def message_received(self, message):
-        await self.send_json({"type": "message-received", "args": {"message_for_receiver": message}})
+        await self.send_json({"type": "message-received", "args": {"message": message}})
 
     @handler_log
     async def messages_read(self, user_id):
