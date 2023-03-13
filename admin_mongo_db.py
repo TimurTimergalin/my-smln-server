@@ -9,6 +9,8 @@ import re
 from config import yaml_config
 
 
+# используется для ручного индексирования коллекций в базе
+# init-mongo.js делает это автоматически
 async def init_db(db: motor.AsyncIOMotorDatabase):
     users = db["users"]
 
