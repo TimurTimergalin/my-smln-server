@@ -1,5 +1,8 @@
 import asyncio
 import json
+
+from bson import ObjectId
+
 import core.status as status
 import websockets
 from core.smln_handler import SMLNHandler
@@ -288,7 +291,7 @@ class Connection:
 
         await asyncio.gather(
             self.send_json({"type": "send", "status": status.ok()}),
-            self.registry.message_received(receiver_id, server_message)
+            self.registry.message_received(ObjectId(receiver_id), server_message)
         )
 
     @smln.handler
@@ -337,7 +340,7 @@ class Connection:
 
     @handler_log
     async def message_received(self, message):
-        await self.send_json({"type": "message_for_receiver-received", "args": {"message_for_receiver": message}})
+        await self.send_json({"type": "message-received", "args": {"message_for_receiver": message}})
 
     @handler_log
     async def messages_read(self, user_id):
